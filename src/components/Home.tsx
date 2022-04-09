@@ -67,8 +67,8 @@ const Home = () => {
         "https://i8na69yys7.execute-api.ap-northeast-1.amazonaws.com/production/golf-courses",
         {
           params: {
-            date: addDays(date, 14),
             budget: budget,
+            date: addDays(date, 14),
             departure: departure,
             duration: duration, // 所要時間 GoogleMaps API
           },
