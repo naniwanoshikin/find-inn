@@ -4,7 +4,7 @@ type Props = {
 };
 
 const Loading: React.FC<Props> = ({ loading }) => {
-  // ローディング終了(false)ならば何も出さない
+  // false = ローディング終了
   if (!loading) {
     return <div></div>;
   }

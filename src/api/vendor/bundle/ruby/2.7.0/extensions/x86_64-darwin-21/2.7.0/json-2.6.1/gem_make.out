@@ -1,0 +1,13 @@
+current directory: /Users/sm/Desktop/workspace/find-inn/src/api/vendor/bundle/ruby/2.7.0/gems/json-2.6.1/ext/json
+/Users/sm/.rbenv/versions/2.7.0/bin/ruby -I /Users/sm/.rbenv/versions/2.7.0/lib/ruby/2.7.0 -r ./siteconf20220409-57994-j34yk8.rb extconf.rb
+creating Makefile
+
+current directory: /Users/sm/Desktop/workspace/find-inn/src/api/vendor/bundle/ruby/2.7.0/gems/json-2.6.1/ext/json
+make "DESTDIR=" clean
+
+current directory: /Users/sm/Desktop/workspace/find-inn/src/api/vendor/bundle/ruby/2.7.0/gems/json-2.6.1/ext/json
+make "DESTDIR="
+make: Nothing to be done for `all'.
+
+current directory: /Users/sm/Desktop/workspace/find-inn/src/api/vendor/bundle/ruby/2.7.0/gems/json-2.6.1/ext/json
+make "DESTDIR=" install

@@ -1,10 +1,11 @@
 import "./Common.css";
-// Home.tsx Plan型
+// 型
 import { Plan } from "./Home";
 
-// Home.tsx
+// 渡ってきたProps型
 type Props = {
   plans: Plan[];
+  // 検索件数
   plansCount: number | undefined;
   error: boolean;
 };
@@ -22,7 +23,7 @@ const Result: React.FC<Props> = ({ plans, plansCount, error }) => {
         </div>
       </div>
     );
-    // 以降の処理はしない
+    // 処理終了
   }
 
   // 検索件数が0だった場合
@@ -36,7 +37,7 @@ const Result: React.FC<Props> = ({ plans, plansCount, error }) => {
         </div>
       </div>
     );
-    // 以降の処理はしない
+    // 処理終了
   }
 
   const result = plans.map((plan: Plan) => {

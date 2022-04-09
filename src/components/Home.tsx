@@ -1,10 +1,10 @@
 import React, { Key } from "react";
 import "./Common.css";
 
-// カレンダーを導入
+// カレンダー導入
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-// 日本語設定
+// 日本語
 import ja from "date-fns/locale/ja";
 
 // axios
@@ -15,7 +15,7 @@ import addDays from "date-fns/addDays";
 import Result from "./Result";
 import Loading from "./Loading";
 
-// 型をつける Result.tsx
+// 型を作成 Result.tsx でも使えるようにする
 export type Plan = {
   plan_id: Key;
   image_url: string;
@@ -33,53 +33,56 @@ const Home = () => {
   const Today = new Date();
   // プレー日
   const [date, setDate] = React.useState<Date>(Today);
-  // 予算
+  // 予算 ¥8000
   const [budget, setBudget] = React.useState<number>(8000);
-  // 出発地
+  // 出発 東京駅
   const [departure, setDeparture] = React.useState<number>(1);
-  // 移動時間 上限
+  // 移動時間 60分
   const [duration, setDuration] = React.useState<number>(60);
-  // 検索結果 Plan型の配列にする
+  // 検索結果 初期: Plan型の空の配列
   const [plans, setPlans] = React.useState<Plan[]>([]);
-  // 検索結果 件数
+  // 検索件数 0件だった場合を考慮
   const [plansCount, setPlansCount] = React.useState<number | undefined>(
     undefined
   );
-  // エラーが起きたかを管理
+  // エラーの有無
   const [hasError, setHasError] = React.useState<boolean>(false);
-  // ローディング状態
+  // ローディングの有無
   const [loading, setLoading] = React.useState<boolean>(false);
   // 変数や関数
   registerLocale("ja", ja);
 
-  // 非同期: ゴルフ場の取得の処理が終わるまでは次の処理はしない
+  // ゴルフ場の取得の処理が終わるまでは次の処理はしない
   const onFormSubmit = async (event: { preventDefault: () => void }) => {
     try {
       event.preventDefault();
-
-      // throw "error";
-
-      // 非同期で通信している間だけローディングする
+      // throw "error"; // エラー出す
+      // ローディング開始
       setLoading(true);
 
-      // axiosを使って、HTTP通信を行う
+      // 非同期通信 + axiosによるHTTP通信
       const response = await axios.get(
-        "https://l1kwik11ne.execute-api.ap-northeast-1.amazonaws.com/production/golf-courses",
+        // API の URL
+        // エンドポイント: count, plans > price, duration
+        "https://i8na69yys7.execute-api.ap-northeast-1.amazonaws.com/production/golf-courses",
         {
           params: {
             date: addDays(date, 14),
             budget: budget,
             departure: departure,
-            duration: duration,
+            duration: duration, // 所要時間 GoogleMaps API
           },
         }
       );
-      // 正常にAPIのレスポンスが返ってきたら、plans Stateに更新
-      setPlans(response.data.plans);
-      // setPlansCount(0); // planCount が 0とする
-      setPlansCount(response.data.planCount);
+      // 正常にAPIのレスポンスが返ってきたら
       console.log(date, budget, departure, duration);
       console.log(response);
+
+      // 検索結果
+      setPlans(response.data.plans);
+      // 検索件数
+      // setPlansCount(0); // 0件
+      setPlansCount(response.data.planCount); // 3件
 
       // ローディング終了
       setLoading(false);
@@ -98,13 +101,15 @@ const Home = () => {
               <i className="calendar alternate outline icon"></i>プレー日
             </label>
             <DatePicker
-              // 日付表示
-              dateFormat="yyyy/MM/dd"
-              locale="ja" // Mon -> 月
+              // 日付を表示
               selected={date}
-              // 過去の日付を出さない
+              // フォーマット
+              dateFormat="yyyy/MM/dd"
+              // Mon -> 月
+              locale="ja"
+              // 今日以降の日付のみ表示
               minDate={Today}
-              // nullなら、今日の日付を表示
+              // nullなら今日の日付
               onChange={(selectedDate) => {
                 setDate(selectedDate || Today);
               }}
@@ -161,7 +166,9 @@ const Home = () => {
             </button>
           </div>
         </form>
+        {/* ローディングアイコン */}
         <Loading loading={loading} />
+        {/* 検索結果: 一覧, 件数, エラーの有無 */}
         <Result plans={plans} plansCount={plansCount} error={hasError} />
       </div>
     </div>
