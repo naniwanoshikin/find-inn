@@ -2,11 +2,6 @@
 
 
 
-# 追加
-.env
-
-
-
 # dependencies
 /node_modules
 /.pnp

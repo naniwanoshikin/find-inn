@@ -2,7 +2,7 @@ import "./Common.css";
 // 型
 import { Plan } from "./Home";
 
-// 渡ってきたProps型
+// 渡ってきた型
 type Props = {
   plans: Plan[];
   // 検索件数
